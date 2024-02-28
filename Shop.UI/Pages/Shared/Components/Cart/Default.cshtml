@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Shop.Application.Cart.GetCart.Response>
+
+@{ 
+
+}
+
+<div>
+    <p class="title">Cart</p>
+    @foreach (var product in Model.ToList()) {
+
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-128x128">
+                    <img src="~/images/testProductImage.jpg" />
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <p class="title">@product.Name</p>
+                    <div class="level">
+                        <div class="level-item">
+                            <p class="subtitle">Qty: @product.Qty</p>
+                        </div>
+                        <div class="level-item">
+                            <p class="subtitle">Size: @product.StockId</p>
+                        </div>
+                        <div class="level-item">
+                            <p class="subtitle">Price: @product.Value</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+    <br />
+</div>

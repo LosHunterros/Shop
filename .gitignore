@@ -1,0 +1,9 @@
+**/.vs
+**/Shop.Application/bin
+**/Shop.Application/obj
+**/Shop.Database/bin
+**/Shop.Database/obj
+**/Shop.Domain/bin
+**/Shop.Domain/obj
+**/Shop.UI/bin
+**/Shop.UI/obj

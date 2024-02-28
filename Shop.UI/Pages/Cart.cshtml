@@ -1,0 +1,75 @@
+﻿@page
+@model Shop.UI.Pages.CartModel
+@{
+}
+
+<div class="container">
+    <div class="columns">
+        <partial name="_CartPartial" model="@Model.Cart" />
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        var addOneToCatr = function (e) {
+            var stockId = e.target.dataset.stockId;
+
+            axios.post("/Cart/AddOne/" + stockId)
+                .then(res => {
+                    updateCart();
+                })
+                .catch(err => {
+                    alert(err.error);
+                });
+        }
+
+        var removeOneFromCart = function (e, qty) {
+            var stockId = e.target.dataset.stockId;
+            if (qty === null || qty === undefined)
+                qty = 1;
+            removeFromCart(stockId, qty);
+        }
+
+        var removeAllFromCart = function (e) {
+            var stockId = e.target.dataset.stockId;
+            var el = document.getElementById("stock-qty-" + stockId);
+            var qty = parseInt(el.innerText);
+            removeFromCart(stockId, qty);
+        }
+
+        var removeFromCart = function (stockId, qty) {
+            axios.post("/Cart/Remove/" + stockId + '/' + qty)
+                .then(res => {
+                    updateCart();
+                })
+                .catch(err => {
+                    alert(err.error);
+                });
+        }
+
+        var updateCart = function () {
+            axios.get("/Cart/GetCartComponent")
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-nav');
+
+                    el.outerHTML = html;
+                })
+                .catch(err => {
+                    alert(err.error);
+                });
+            axios.get("/Cart/GetCartMain")
+                .then(res => {
+                    var html = res.data;
+                    var el = document.getElementById('cart-main');
+
+                    el.outerHTML = html;
+                })
+                .catch(err => {
+                    alert(err.error);
+                });
+        }
+    </script>
+}
